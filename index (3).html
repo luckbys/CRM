@@ -1,0 +1,410 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Atendimento
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <style>
+   .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   }
+   .modal {
+    display: none;
+    position: fixed;
+    z-index: 50;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+   }
+   .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+   }
+   .drawer {
+    display: none;
+    position: fixed;
+    z-index: 50;
+    left: 0;
+    top: 0;
+    width: 75%;
+    max-width: 300px;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+   }
+   .drawer.open {
+    transform: translateX(0);
+    display: block;
+   }
+   @media (min-width: 768px) {
+    .drawer {
+     display: block !important;
+     position: relative;
+     transform: none;
+     box-shadow: none;
+     width: 25%;
+    }
+   }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <div class="flex flex-col h-screen">
+   <!-- Header -->
+   <div class="bg-blue-900 text-white flex items-center justify-between p-4">
+    <div class="flex items-center space-x-4">
+     <button class="bg-orange-500 p-2 rounded" id="openModal">
+      <i class="material-icons">
+       add
+      </i>
+     </button>
+     <h1 class="text-xl font-bold">
+      Atendimento
+     </h1>
+    </div>
+    <div class="flex items-center space-x-4">
+     <div class="flex items-center space-x-2">
+      <span class="bg-green-500 p-2 rounded-full text-xs">
+       0
+      </span>
+      <span class="bg-red-500 p-2 rounded-full text-xs">
+       0
+      </span>
+     </div>
+     <div class="hidden md:flex items-center space-x-2">
+      <label class="text-sm" for="responsavel">
+       Responsável:
+      </label>
+      <select class="bg-white text-black p-2 rounded" id="responsavel">
+       <option>
+        Lucas
+       </option>
+      </select>
+     </div>
+     <div class="hidden md:flex items-center space-x-2">
+      <label class="text-sm" for="status">
+       Status:
+      </label>
+      <select class="bg-white text-black p-2 rounded" id="status">
+       <option>
+        Em Execução
+       </option>
+      </select>
+     </div>
+     <div class="hidden md:flex items-center space-x-2">
+      <label class="text-sm" for="date">
+       De / Até:
+      </label>
+      <input class="bg-white text-black p-2 rounded" id="date" type="text" value="15/12/2024 - 15/01/2025"/>
+     </div>
+     <button class="bg-orange-500 p-2 rounded hidden md:block">
+      <i class="material-icons">
+       search
+      </i>
+     </button>
+     <button class="bg-orange-500 p-2 rounded hidden md:block">
+      Pesquisa Avançada
+     </button>
+     <button class="bg-orange-500 p-2 rounded hidden md:block">
+      <i class="material-icons">
+       calendar_today
+      </i>
+     </button>
+     <button class="relative bg-orange-500 p-2 rounded">
+      <i class="material-icons">
+       notifications
+      </i>
+      <span class="absolute top-0 right-0 inline-block w-3 h-3 bg-red-500 rounded-full">
+      </span>
+     </button>
+     <button class="bg-orange-500 p-2 rounded md:hidden" id="openDrawer">
+      <i class="material-icons">
+       menu
+      </i>
+     </button>
+    </div>
+   </div>
+   <!-- Main Content -->
+   <div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar / Drawer -->
+    <div class="drawer md:block md:relative md:w-1/4 bg-white border-r overflow-y-auto" id="drawer">
+     <div class="p-4">
+      <button class="bg-red-500 text-white p-2 rounded mb-4 md:hidden" id="closeDrawer">
+       <i class="material-icons">
+        close
+       </i>
+      </button>
+      <input class="w-full p-2 border rounded" placeholder="Nº do Ticket" type="text"/>
+     </div>
+     <div class="p-4">
+      <div class="card transition-transform duration-200 ease-in-out p-4 border rounded mb-4">
+       <div class="flex items-center justify-between mb-4">
+        <span class="text-lg font-bold">
+         TK: 65641
+        </span>
+        <button class="bg-blue-500 text-white p-2 rounded">
+         Em Atendimento
+        </button>
+       </div>
+       <div class="mb-4">
+        <p class="font-bold">
+         Thaisa Marcondes
+        </p>
+        <p>
+         (12) 99744-3919
+        </p>
+        <p class="text-purple-500">
+         Lucas
+        </p>
+        <p class="text-sm text-gray-500">
+         Combinado
+        </p>
+        <p class="text-sm text-gray-500">
+         11:31:07
+        </p>
+       </div>
+      </div>
+      <div class="card transition-transform duration-200 ease-in-out p-4 border rounded mb-4">
+       <div class="flex items-center justify-between mb-4">
+        <span class="text-lg font-bold">
+         TK: 65640
+        </span>
+        <button class="bg-blue-500 text-white p-2 rounded">
+         Em Atendimento
+        </button>
+       </div>
+       <div class="mb-4">
+        <p class="font-bold">
+         G.A.A.MARTINS &amp; MARTINS L...
+        </p>
+        <p>
+         (12) 98268-9979
+        </p>
+        <p class="text-purple-500">
+         Lucas
+        </p>
+        <p class="text-sm text-gray-500">
+         Bom dia
+        </p>
+        <p class="text-sm text-gray-500">
+         11:24:58
+        </p>
+       </div>
+      </div>
+      <div class="card transition-transform duration-200 ease-in-out p-4 border rounded mb-4">
+       <div class="flex items-center justify-between mb-4">
+        <span class="text-lg font-bold">
+         TK: 65626
+        </span>
+        <button class="bg-blue-500 text-white p-2 rounded">
+         Em Atendimento
+        </button>
+       </div>
+       <div class="mb-4">
+        <p class="font-bold">
+         GENERAL SILVA &amp; SILVA FER...
+        </p>
+        <p>
+         (12) 99737-4844
+        </p>
+        <p class="text-purple-500">
+         Lucas
+        </p>
+        <p class="text-sm text-gray-500">
+         Bom dia, conferir se já aparece o boleto para você ac...
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- Chat Section -->
+    <div class="flex-1 flex flex-col">
+     <div class="flex items-center justify-between p-4 bg-gray-100 border-b">
+      <div class="flex items-center space-x-2">
+       <span class="text-lg font-bold">
+        TK: 65640
+       </span>
+       <span class="text-purple-500">
+        Lucas
+       </span>
+      </div>
+      <div class="flex items-center space-x-2">
+       <span class="font-bold">
+        G.A.A.MARTINS &amp; MARTINS LTDA - ME
+       </span>
+       <i class="material-icons">
+        public
+       </i>
+      </div>
+     </div>
+     <div class="flex-1 overflow-y-auto p-4">
+      <div class="mb-4">
+       <p class="bg-gray-200 p-2 rounded">
+        Preciso alterar o sistema para regime normal, vocês conseguem me auxiliar para fazer isso?
+       </p>
+       <p class="text-sm text-gray-500">
+        15/01/2025 11:16:01
+       </p>
+      </div>
+      <div class="mb-4">
+       <p class="bg-gray-200 p-2 rounded">
+        No CNPJ 04895625000110
+       </p>
+       <p class="text-sm text-gray-500">
+        15/01/2025 11:16:10
+       </p>
+      </div>
+      <div class="mb-4">
+       <p class="bg-blue-100 p-2 rounded">
+        Bom dia
+       </p>
+       <p class="text-sm text-gray-500">
+        15/01/2025 11:24:58 Lucas
+       </p>
+      </div>
+      <div class="mb-4">
+       <p class="bg-blue-100 p-2 rounded">
+        no setup em configurações &gt; aba notas fiscais
+       </p>
+       <p class="text-sm text-gray-500">
+        15/01/2025 11:34:34 Lucas
+       </p>
+      </div>
+      <div class="mb-4">
+       <img alt="Screenshot of the setup configuration page" class="rounded" src="https://placehold.co/600x400"/>
+      </div>
+     </div>
+     <div class="p-4 bg-gray-100 border-t">
+      <div class="flex items-center space-x-4">
+       <button class="bg-blue-500 text-white p-2 rounded">
+        Resposta ao Cliente
+       </button>
+       <button class="bg-gray-300 text-black p-2 rounded">
+        Anotação Interna
+       </button>
+      </div>
+      <textarea class="w-full p-2 mt-4 border rounded" placeholder="Digite seu texto ou cole uma foto (Ctrl + V) para enviar."></textarea>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal" id="myModal">
+   <div class="modal-content">
+    <span class="close text-red-500 cursor-pointer float-right text-xl font-bold">
+     ×
+    </span>
+    <h2 class="text-2xl font-bold mb-4">
+     Novo Atendimento
+    </h2>
+    <form>
+     <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="ticketNumber">
+       Número do Ticket
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ticketNumber" type="text"/>
+     </div>
+     <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="clientName">
+       Nome do Cliente
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="clientName" type="text"/>
+     </div>
+     <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="clientPhone">
+       Telefone do Cliente
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="clientPhone" type="text"/>
+     </div>
+     <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="responsavelModal">
+       Responsável
+      </label>
+      <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="responsavelModal">
+       <option>
+        Lucas
+       </option>
+      </select>
+     </div>
+     <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="statusModal">
+       Status
+      </label>
+      <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="statusModal">
+       <option>
+        Em Execução
+       </option>
+      </select>
+     </div>
+     <div class="flex items-center justify-between">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+       Salvar
+      </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <script>
+   // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("openModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Drawer functionality
+    var drawer = document.getElementById("drawer");
+    var openDrawerBtn = document.getElementById("openDrawer");
+    var closeDrawerBtn = document.getElementById("closeDrawer");
+
+    openDrawerBtn.onclick = function() {
+        drawer.classList.add("open");
+    }
+
+    closeDrawerBtn.onclick = function() {
+        drawer.classList.remove("open");
+    }
+
+    window.onclick = function(event) {
+        if (event.target == drawer) {
+            drawer.classList.remove("open");
+        }
+    }
+  </script>
+ </body>
+</html>
