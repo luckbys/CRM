@@ -29,15 +29,89 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
         .modal-content {
-            background-color: #fff;
-            margin: 10% auto;
-            padding: 20px;
-            border-radius: 12px;
-            width: 80%;
-            max-width: 500px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            margin: 2% auto;
+            padding: 2rem;
+            border-radius: 16px;
+            width: 95%;
+            max-width: 1000px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+        .modal.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .form-input {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 8px;
+            padding: 0.75rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .form-label {
+            font-weight: 500;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .modal-close {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: rotate(90deg);
+        }
+        .form-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .form-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        .form-button:active {
+            transform: translateY(0);
         }
         .drawer {
             display: none;
@@ -67,161 +141,2209 @@
                 width: 25%;
             }
         }
+        .glassmorphism {
+            background: rgba(30, 58, 138, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .button-glass {
+            background: rgba(22, 163, 74, 0.8);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .button-glass:hover {
+            background: rgba(22, 163, 74, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
+        }
+        .button-glass:focus {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+        .button-glass.notification {
+            background: rgba(234, 88, 12, 0.8);
+        }
+        .button-glass.notification:hover {
+            background: rgba(234, 88, 12, 0.9);
+            box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
+        }
+        .select-glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .select-glass:focus {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+        .input-glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .input-glass:focus {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+        @keyframes notification-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .notification-badge {
+            animation: notification-pulse 2s infinite;
+        }
+        .search-results {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 8px;
+            z-index: 1000;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .search-results.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .search-item {
+            padding: 12px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+        .search-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .search-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 999;
+        }
+        .search-results-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .search-results-container.show {
+            display: flex;
+            opacity: 1;
+        }
+        .search-results-panel {
+            background: white;
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .search-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .ticket-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .ticket-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+        }
+        .search-filters {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+        }
+        .right-drawer {
+            position: fixed;
+            right: -400px;
+            top: 64px;
+            width: 400px;
+            height: calc(100vh - 64px);
+            background: white;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 40;
+            display: flex;
+            flex-direction: column;
+        }
+        .right-drawer.open {
+            right: 0;
+        }
+        .right-drawer-header {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+        }
+        .right-drawer-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            background: #f9fafb;
+        }
+        .ticket-list-right {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .floating-button {
+            position: fixed;
+            right: 420px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+            z-index: 41;
+        }
+        .floating-button i {
+            transition: transform 0.3s ease;
+            transform: rotate(180deg);
+        }
+        .floating-button:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+        }
+        .floating-button.closed {
+            right: 20px;
+        }
+        .floating-button.closed i {
+            transform: rotate(0deg);
+        }
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            height: calc(100vh - 64px);
+            position: relative;
+        }
+        .left-sidebar {
+            width: 80px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 64px;
+            z-index: 30;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            padding: 1rem 0;
+            gap: 0.5rem;
+        }
+        .left-sidebar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+        .sidebar-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.75rem 0.5rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+            border-radius: 12px;
+        }
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(31, 38, 135, 0.1);
+        }
+        .sidebar-item.active {
+            background: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+        }
+        .sidebar-item.active::before {
+            content: '';
+            position: absolute;
+            left: -0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 70%;
+            background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 0 4px 4px 0;
+        }
+        .sidebar-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .sidebar-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            z-index: 0;
+            backdrop-filter: blur(4px);
+        }
+        .sidebar-icon i {
+            position: relative;
+            z-index: 1;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .sidebar-icon.vendas {
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            color: #16a34a;
+        }
+        .sidebar-icon.atendimento {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #dc2626;
+        }
+        .sidebar-icon.qualidade {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #d97706;
+        }
+        .sidebar-icon.cobranca {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #2563eb;
+        }
+        .sidebar-icon.prospeccao {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            color: #db2777;
+        }
+        .sidebar-icon.whats {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            color: #4b5563;
+        }
+        .sidebar-item:hover .sidebar-icon {
+            transform: scale(1.1);
+        }
+        .sidebar-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #4b5563;
+            text-align: center;
+            line-height: 1.2;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+        .sidebar-item:hover .sidebar-label {
+            opacity: 1;
+            color: #1f2937;
+        }
+        .sidebar-counter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: #6b7280;
+            margin-top: 0.25rem;
+            transition: all 0.3s ease;
+        }
+        .counter-divider {
+            width: 6px;
+            height: 1px;
+            background: #d1d5db;
+            margin: 0.125rem 0;
+            transition: all 0.3s ease;
+        }
+        .sidebar-item:hover .counter-divider {
+            width: 8px;
+            background: #9ca3af;
+        }
+        .sidebar-item:hover .sidebar-counter {
+            color: #4b5563;
+        }
+        .chat-section {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 64px);
+            background: #f9fafb;
+            transition: margin-right 0.3s ease;
+            position: fixed;
+            top: 64px;
+            right: 0;
+            left: 5px;
+            bottom: 0;
+            overflow: hidden;
+        }
+        .chat-section.drawer-open {
+            margin-right: 400px;
+        }
+        .chat-header {
+            padding: 1rem;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            flex-shrink: 0;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-input {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 1.5rem;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .chat-type-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .chat-type-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .chat-type-button.primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+        .chat-type-button.primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        .chat-type-button.secondary {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+        .chat-type-button.secondary:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+        }
+        .chat-input-actions {
+            position: absolute;
+            right: 1.5rem;
+            bottom: 1.5rem;
+            display: flex;
+            gap: 0.75rem;
+        }
+        .chat-input-button {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .send-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+        .send-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+        }
+        .upload-button {
+            background: white;
+            border: 2px solid #e5e7eb;
+            color: #6b7280;
+        }
+        .upload-button:hover {
+            background: #f9fafb;
+            transform: translateY(-2px) scale(1.05);
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+        .ticket-list {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .ticket-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .ticket-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+        }
+        .ticket-card.active {
+            border-color: #3b82f6;
+            background: #f0f7ff;
+        }
+        .filters-section {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            background: white;
+        }
+        .search-section {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            background: white;
+        }
+        .accordion-header {
+            cursor: pointer;
+            padding: 1rem;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        .accordion-header:hover {
+            background: #f8fafc;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: white;
+        }
+        .accordion-content.open {
+            max-height: 400px;
+            transition: max-height 0.5s ease-in;
+        }
+        .rotate-icon {
+            transition: transform 0.3s ease;
+        }
+        .rotate-icon.open {
+            transform: rotate(180deg);
+        }
+        .notifications-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            width: 380px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .notifications-dropdown.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .notification-header {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .notification-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .notification-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .notification-icon {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notification-content {
+            flex: 1;
+        }
+        .notification-time {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        .step-content {
+            display: none;
+        }
+        .step-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .stepper {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .stepper::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e5e7eb;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        .step {
+            position: relative;
+            z-index: 1;
+            padding: 0 1rem;
+        }
+        .step-circle {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: #f3f4f6;
+            border: 2px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        .step.active .step-circle {
+            background: #3b82f6;
+            border-color: #2563eb;
+            color: white;
+        }
+        .step.completed .step-circle {
+            background: #10b981;
+            border-color: #059669;
+            color: white;
+        }
+        .step-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .step.active .step-label {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .step-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        .sticky-search {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+            box-shadow: 0 4px 15px rgba(31, 38, 135, 0.07);
+        }
+        .search-input-glass {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 12px;
+            padding: 0.75rem 0.75rem 0.75rem 2.75rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .search-input-glass:focus {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+            outline: none;
+        }
+        .search-input-glass::placeholder {
+            color: rgba(107, 114, 128, 0.8);
+        }
+        .search-icon-glass {
+            position: absolute;
+            left: 0.875rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(107, 114, 128, 0.6);
+            transition: all 0.3s ease;
+        }
+        .search-input-glass:focus + .search-icon-glass {
+            color: rgba(59, 130, 246, 0.8);
+        }
+        .chat-message {
+            margin: 1rem 0;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease;
+        }
+        .chat-message.sent {
+            margin-left: auto;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border-radius: 16px 16px 4px 16px;
+            padding: 1rem;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+        }
+        .chat-message.received {
+            margin-right: auto;
+            background: white;
+            color: #1f2937;
+            border-radius: 16px 16px 16px 4px;
+            padding: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .message-time {
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+        .message-status {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        .message-status i {
+            font-size: 1rem;
+        }
+        .internal-note {
+            background: rgba(249, 250, 251, 0.9);
+            border-left: 4px solid #9ca3af;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            color: #4b5563;
+            font-style: italic;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 3px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #d1d5db;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
     <div class="flex flex-col h-screen">
         <!-- Header -->
-        <div class="bg-blue-900 text-white flex items-center justify-between p-4 shadow-lg">
+        <div class="glassmorphism h-16 sticky top-0 z-50 text-white flex items-center justify-between px-4 shadow-lg">
             <div class="flex items-center space-x-4">
-                <button class="bg-orange-500 p-2 rounded hover:bg-orange-600 transition" id="openModal">
+                <button class="button-glass p-3 rounded-lg flex items-center justify-center" 
+                        id="openModal" 
+                        aria-label="Novo Atendimento">
                     <i class="material-icons">add</i>
                 </button>
                 <h1 class="text-xl font-bold">Atendimento</h1>
             </div>
-            <div class="flex items-center space-x-4">
-                <div class="flex items-center space-x-2">
-                    <span class="bg-green-500 p-2 rounded-full text-xs">0</span>
-                    <span class="bg-red-500 p-2 rounded-full text-xs">0</span>
-                </div>
-                <div class="hidden md:flex items-center space-x-2">
-                    <label class="text-sm" for="responsavel">Responsável:</label>
-                    <select class="bg-white text-black p-2 rounded" id="responsavel">
-                        <option>Lucas</option>
-                    </select>
-                </div>
-                <div class="hidden md:flex items-center space-x-2">
-                    <label class="text-sm" for="status">Status:</label>
-                    <select class="bg-white text-black p-2 rounded" id="status">
-                        <option>Em Execução</option>
-                    </select>
-                </div>
-                <div class="hidden md:flex items-center space-x-2">
-                    <label class="text-sm" for="date">De / Até:</label>
-                    <input class="bg-white text-black p-2 rounded" id="date" type="text" value="15/12/2024 - 15/01/2025"/>
-                </div>
-                <button class="bg-orange-500 p-2 rounded hover:bg-orange-600 transition hidden md:block">
-                    <i class="material-icons">search</i>
-                </button>
-                <button class="bg-orange-500 p-2 rounded hover:bg-orange-600 transition hidden md:block">Pesquisa Avançada</button>
-                <button class="bg-orange-500 p-2 rounded hover:bg-orange-600 transition hidden md:block">
-                    <i class="material-icons">calendar_today</i>
-                </button>
-                <button class="relative bg-orange-500 p-2 rounded hover:bg-orange-600 transition">
+            <div class="flex items-center space-x-3 relative">
+                <button class="button-glass notification p-3 rounded-lg relative" aria-label="Notificações" id="notificationButton">
                     <i class="material-icons">notifications</i>
-                    <span class="absolute top-0 right-0 inline-block w-3 h-3 bg-red-500 rounded-full"></span>
+                    <span class="notification-badge absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-xs">3</span>
                 </button>
-                <button class="bg-orange-500 p-2 rounded hover:bg-orange-600 transition md:hidden" id="openDrawer">
-                    <i class="material-icons">menu</i>
-                </button>
+                <!-- Notifications Dropdown -->
+                <div class="notifications-dropdown" id="notificationsDropdown">
+                    <div class="notification-header">
+                        <h3 class="text-lg font-semibold text-gray-800">Notificações</h3>
+                        <span class="text-sm text-gray-500">3 tickets atrasados</span>
+                </div>
+                    <div class="notification-list">
+                        <div class="notification-item" onclick="selectTicket('65641')">
+                            <div class="notification-icon">
+                                <i class="material-icons">timer</i>
+                </div>
+                            <div class="notification-content">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="font-semibold text-gray-800">TK: 65641 - Thaisa Marcondes</p>
+                                        <p class="text-sm text-gray-600">Aguardando resposta há 2 dias</p>
+                </div>
+                                    <span class="notification-time">2 dias</span>
             </div>
         </div>
-        <!-- Main Content -->
-        <div class="flex flex-1 overflow-hidden">
-            <!-- Sidebar / Drawer -->
-            <div class="drawer md:block md:relative md:w-1/4 bg-white border-r overflow-y-auto" id="drawer">
-                <div class="p-4">
-                    <button class="bg-red-500 text-white p-2 rounded mb-4 md:hidden" id="closeDrawer">
-                        <i class="material-icons">close</i>
-                    </button>
-                    <input class="w-full p-2 border rounded" placeholder="Nº do Ticket" type="text"/>
                 </div>
-                <div class="p-4">
-                    <div class="card p-4 mb-4">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-lg font-bold">TK: 65641</span>
-                            <button class="bg-blue-500 text-white p-2 rounded">Em Atendimento</button>
+                        <div class="notification-item" onclick="selectTicket('65642')">
+                            <div class="notification-icon">
+                                <i class="material-icons">timer</i>
                         </div>
-                        <div class="mb-4">
-                            <p class="font-bold">Thaisa Marcondes</p>
-                            <p>(12) 99744-3919</p>
-                            <p class="text-purple-500">Lucas</p>
-                            <p class="text-sm text-gray-500">Combinado</p>
-                            <p class="text-sm text-gray-500">11:31:07</p>
+                            <div class="notification-content">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="font-semibold text-gray-800">TK: 65642 - João Silva</p>
+                                        <p class="text-sm text-gray-600">Aguardando resposta há 1 dia</p>
                         </div>
+                                    <span class="notification-time">1 dia</span>
                     </div>
-                    <!-- Additional cards can be added here -->
                 </div>
             </div>
-            <!-- Chat Section -->
-            <div class="flex-1 flex flex-col">
-                <div class="flex items-center justify-between p-4 bg-gray-100 border-b">
-                    <div class="flex items-center space-x-2">
+                        <div class="notification-item" onclick="selectTicket('65645')">
+                            <div class="notification-icon">
+                                <i class="material-icons">timer</i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="font-semibold text-gray-800">TK: 65645 - Ana Souza</p>
+                                        <p class="text-sm text-gray-600">Aguardando resposta há 3 horas</p>
+                                    </div>
+                                    <span class="notification-time">3h</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Left Sidebar -->
+            <div class="left-sidebar">
+                <div class="sidebar-item active">
+                    <div class="sidebar-icon vendas">
+                        <i class="material-icons">shopping_cart</i>
+                    </div>
+                    <span class="sidebar-label">Vendas</span>
+                    <div class="sidebar-counter">
+                        <span>0</span>
+                        <div class="counter-divider"></div>
+                        <span>0</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-item">
+                    <div class="sidebar-icon atendimento">
+                        <i class="material-icons">headset_mic</i>
+                    </div>
+                    <span class="sidebar-label">Atendimento</span>
+                    <div class="sidebar-counter">
+                        <span>0</span>
+                        <div class="counter-divider"></div>
+                        <span>0</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-item">
+                    <div class="sidebar-icon qualidade">
+                        <i class="material-icons">verified</i>
+                    </div>
+                    <span class="sidebar-label">Qualidade</span>
+                    <div class="sidebar-counter">
+                        <span>0</span>
+                        <div class="counter-divider"></div>
+                        <span>0</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-item">
+                    <div class="sidebar-icon cobranca">
+                        <i class="material-icons">attach_money</i>
+                    </div>
+                    <span class="sidebar-label">Cobrança</span>
+                    <div class="sidebar-counter">
+                        <span>0</span>
+                        <div class="counter-divider"></div>
+                        <span>0</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-item">
+                    <div class="sidebar-icon prospeccao">
+                        <i class="material-icons">star</i>
+                    </div>
+                    <span class="sidebar-label">Prospecção</span>
+                    <div class="sidebar-counter">
+                        <span>0</span>
+                        <div class="counter-divider"></div>
+                        <span>0</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-item">
+                    <div class="sidebar-icon whats">
+                        <i class="material-icons">whatshot</i>
+                    </div>
+                    <span class="sidebar-label">Whats4</span>
+                    <div class="sidebar-counter">
+                        <span>0</span>
+                        <div class="counter-divider"></div>
+                        <span>0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Section with adjusted margin -->
+            <div class="chat-section" style="margin-left: 80px;">
+                <div class="chat-header">
+                    <div class="flex flex-col space-y-2">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
                         <span class="text-lg font-bold">TK: 65640</span>
+                                <div class="flex items-center space-x-1">
+                                    <i class="material-icons text-purple-500">account_circle</i>
                         <span class="text-purple-500">Lucas</span>
+                                </div>
+                            </div>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <span class="font-bold">G.A.A.MARTINS & MARTINS LTDA - ME</span>
-                        <i class="material-icons">public</i>
+                            <i class="material-icons text-gray-500">business</i>
+                            <span class="font-bold text-gray-800">G.A.A.MARTINS & MARTINS LTDA - ME</span>
                     </div>
                 </div>
-                <div class="flex-1 overflow-y-auto p-4">
-                    <!-- Chat messages can be added here -->
                 </div>
-                <div class="p-4 bg-gray-100 border-t">
-                    <div class="flex items-center space-x-4">
-                        <button class="bg-blue-500 text-white p-2 rounded">Resposta ao Cliente</button>
-                        <button class="bg-gray-300 text-black p-2 rounded">Anotação Interna</button>
+
+                <div class="chat-messages">
+                    <!-- Chat messages will be added here -->
                     </div>
-                    <textarea class="w-full p-2 mt-4 border rounded" placeholder="Digite seu texto ou cole uma foto (Ctrl + V) para enviar."></textarea>
+
+                <div class="chat-input">
+                    <div class="chat-type-buttons">
+                        <button class="chat-type-button primary">
+                            <i class="material-icons">reply</i>
+                            <span>Resposta ao Cliente</span>
+                        </button>
+                        <button class="chat-type-button secondary">
+                            <i class="material-icons">note_add</i>
+                            <span>Anotação Interna</span>
+                        </button>
                 </div>
+                    <div class="relative">
+                        <textarea 
+                            class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none pr-28" 
+                            rows="4"
+                            placeholder="Digite seu texto ou cole uma foto (Ctrl + V) para enviar."></textarea>
+                        <div class="chat-input-actions">
+                            <label class="upload-button chat-input-button" for="fileUpload" title="Anexar arquivo">
+                                <input type="file" id="fileUpload" class="hidden" multiple>
+                                <i class="material-icons">attach_file</i>
+                            </label>
+                            <button class="send-button chat-input-button" title="Enviar mensagem">
+                                <i class="material-icons">send</i>
+                            </button>
             </div>
         </div>
     </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal -->
     <div class="modal" id="myModal">
         <div class="modal-content">
-            <span class="close text-red-500 cursor-pointer float-right text-xl font-bold">×</span>
-            <h2 class="text-2xl font-bold mb-4">Novo Atendimento</h2>
-            <form>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="ticketNumber">Número do Ticket</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ticketNumber" type="text"/>
+            <button class="modal-close" aria-label="Fechar modal">
+                <i class="material-icons">close</i>
+            </button>
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Novo Atendimento</h2>
+            
+            <!-- Stepper -->
+            <div class="stepper">
+                <div class="step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Cliente</div>
                 </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="clientName">Nome do Cliente</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="clientName" type="text"/>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Contato</div>
                 </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="clientPhone">Telefone do Cliente</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="clientPhone" type="text"/>
+                <div class="step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Atendimento</div>
                 </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="responsavelModal">Responsável</label>
-                    <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="responsavelModal">
-                        <option>Lucas</option>
+            </div>
+
+            <form id="newTicketForm" class="space-y-6">
+                <!-- Step 1: Cliente -->
+                <div class="step-content active" data-step="1">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="form-label" for="cnpj">CNPJ</label>
+                            <input class="form-input" 
+                                   id="cnpj" 
+                                   type="text" 
+                                   placeholder="00.000.000/0000-00"
+                                   maxlength="18"
+                                   onkeyup="maskCNPJ(this)"
+                                   required>
+                        </div>
+                        <div>
+                            <label class="form-label" for="clientName">Nome do Cliente</label>
+                            <input class="form-input" 
+                                   id="clientName" 
+                                   type="text" 
+                                   placeholder="Digite o nome do cliente"
+                                   required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Contato -->
+                <div class="step-content" data-step="2">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="form-label" for="clientPhone">Telefone</label>
+                            <input class="form-input" 
+                                   id="clientPhone" 
+                                   type="tel" 
+                                   placeholder="(00) 00000-0000"
+                                   required>
+                        </div>
+                        <div>
+                            <label class="form-label" for="clientEmail">E-mail</label>
+                            <input class="form-input" 
+                                   id="clientEmail" 
+                                   type="email" 
+                                   placeholder="email@exemplo.com"
+                                   required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Atendimento -->
+                <div class="step-content" data-step="3">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="form-label" for="responsavelModal">Responsável</label>
+                            <select class="form-input cursor-pointer" 
+                                    id="responsavelModal"
+                                    required>
+                                <option value="">Selecione um responsável</option>
                     </select>
                 </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="statusModal">Status</label>
-                    <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="statusModal">
-                        <option>Em Execução</option>
+                        <div>
+                            <label class="form-label" for="statusModal">Status</label>
+                            <select class="form-input cursor-pointer" 
+                                    id="statusModal"
+                                    required>
+                                <option value="">Selecione um status</option>
                     </select>
                 </div>
-                <div class="flex items-center justify-between">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Salvar</button>
+                        <div>
+                            <label class="form-label" for="descricao">Descrição</label>
+                            <textarea class="form-input" 
+                                      id="descricao" 
+                                      rows="3"
+                                      placeholder="Descreva o atendimento"
+                                      required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="step-buttons">
+                    <button type="button" 
+                            class="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 hidden" 
+                            id="prevStep">
+                        Voltar
+                    </button>
+                    <button type="button" 
+                            class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600" 
+                            id="nextStep">
+                        Próximo
+                    </button>
+                    <button type="submit" 
+                            class="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 hidden" 
+                            id="submitForm">
+                        Finalizar
+                    </button>
                 </div>
             </form>
         </div>
     </div>
+
+    <!-- Search Modal -->
+    <div class="search-overlay" id="searchOverlay"></div>
+    <div class="search-results" id="searchResults">
+        <div class="p-4 border-b">
+            <div class="flex space-x-4 mb-4">
+                <input type="text" 
+                       class="form-input flex-1" 
+                       placeholder="Buscar por número do ticket"
+                       id="searchTicket">
+                <input type="date" 
+                       class="form-input w-40" 
+                       id="searchDate">
+            </div>
+        </div>
+        <div id="searchResultsList">
+            <!-- Search results will be populated here -->
+        </div>
+    </div>
+
+    <!-- Search Results Container -->
+    <div class="search-results-container" id="searchResultsContainer">
+        <div class="search-results-panel">
+            <div class="search-header">
+                <div class="flex items-center space-x-4">
+                    <h2 class="text-xl font-bold text-gray-800">Resultados da Busca</h2>
+                    <span class="text-sm text-gray-500" id="resultCount"></span>
+                </div>
+                <button class="modal-close" id="closeSearch" aria-label="Fechar busca">
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+            <div class="search-filters">
+                <div class="flex-1">
+                    <input type="text" 
+                           class="form-input" 
+                           placeholder="Buscar por número do ticket ou cliente"
+                           id="searchInput">
+                </div>
+                <div class="w-48">
+                    <select class="form-input cursor-pointer" id="statusFilter">
+                        <option value="">Todos os Status</option>
+                        <option value="Em Atendimento">Em Atendimento</option>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Concluído">Concluído</option>
+                        <option value="Aguardando">Aguardando</option>
+                    </select>
+                </div>
+                <div class="w-40">
+                    <input type="date" class="form-input" id="dateFilter">
+                </div>
+            </div>
+            <div class="search-body">
+                <div class="search-grid" id="searchResultsGrid">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Button -->
+    <button class="floating-button" id="toggleRightDrawer" aria-label="Mostrar/Ocultar Lista de Tickets">
+        <i class="material-icons">format_list_bulleted</i>
+    </button>
+
+    <!-- Right Drawer -->
+    <div class="right-drawer" id="rightDrawer">
+        <div class="right-drawer-header">
+            <h2 class="text-lg font-semibold text-gray-800">Lista de Tickets</h2>
+            <div class="flex items-center space-x-2">
+                <span class="text-sm text-gray-500" id="ticketCount"></span>
+                <button class="text-gray-400 hover:text-gray-600" id="refreshTickets">
+                    <i class="material-icons">refresh</i>
+                </button>
+            </div>
+        </div>
+        <div class="right-drawer-content">
+            <!-- Filtros em Accordion -->
+            <div class="border-b border-gray-200">
+                <div class="accordion-header flex items-center justify-between p-4 bg-white cursor-pointer" id="filterAccordion">
+                    <div class="flex items-center space-x-2">
+                        <i class="material-icons text-gray-600">filter_list</i>
+                        <h2 class="text-lg font-semibold text-gray-700">Filtros</h2>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="text-blue-500 hover:text-blue-600 text-sm font-medium flex items-center space-x-1" id="clearFilters">
+                            <i class="material-icons text-sm">refresh</i>
+                            <span>Limpar</span>
+                        </button>
+                        <i class="material-icons text-gray-400 rotate-icon">expand_more</i>
+                    </div>
+                </div>
+                <div class="accordion-content" id="filterContent">
+                    <div class="p-4 space-y-4 bg-white">
+                        <div>
+                            <label class="text-sm font-medium text-gray-600 block mb-1">
+                                <i class="material-icons text-gray-400 align-bottom text-base mr-1">person</i>
+                                Responsável
+                            </label>
+                            <select class="form-input cursor-pointer" id="responsavel">
+                                <option value="">Todos</option>
+                                <option selected>Lucas</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-600 block mb-1">
+                                <i class="material-icons text-gray-400 align-bottom text-base mr-1">flag</i>
+                                Status
+                            </label>
+                            <select class="form-input cursor-pointer" id="status">
+                                <option value="">Todos</option>
+                                <option selected>Em Execução</option>
+                                <option>Pendente</option>
+                                <option>Concluído</option>
+                    </select>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-600 block mb-1">
+                                <i class="material-icons text-gray-400 align-bottom text-base mr-1">date_range</i>
+                                Período
+                            </label>
+                            <input class="form-input" type="text" id="periodo" value="15/12/2024 - 15/01/2025">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Busca -->
+            <div class="sticky-search">
+                <div class="relative">
+                    <input class="search-input-glass" 
+                           type="text" 
+                           id="rightDrawerSearch" 
+                           placeholder="Buscar por CNPJ..."
+                           maxlength="18"
+                           onkeyup="maskCNPJ(this)">
+                    <i class="material-icons search-icon-glass">business</i>
+                </div>
+            </div>
+
+            <!-- Lista de Tickets -->
+            <div class="space-y-4 p-4" id="rightDrawerTickets">
+                <!-- Tickets will be populated here -->
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Modal and Drawer functionality
+        // Modal functionality
         var modal = document.getElementById("myModal");
         var btn = document.getElementById("openModal");
-        var span = document.getElementsByClassName("close")[0];
-        btn.onclick = function() { modal.style.display = "block"; }
-        span.onclick = function() { modal.style.display = "none"; }
-        window.onclick = function(event) {
-            if (event.target == modal) { modal.style.display = "none"; }
+        var closeBtn = document.querySelector(".modal-close");
+        
+        btn.onclick = function() {
+            modal.style.display = "block";
+            setTimeout(() => modal.classList.add("show"), 10);
         }
-        var drawer = document.getElementById("drawer");
-        var openDrawerBtn = document.getElementById("openDrawer");
-        var closeDrawerBtn = document.getElementById("closeDrawer");
-        openDrawerBtn.onclick = function() { drawer.classList.add("open"); }
-        closeDrawerBtn.onclick = function() { drawer.classList.remove("open"); }
-        window.onclick = function(event) {
-            if (event.target == drawer) { drawer.classList.remove("open"); }
+        
+        closeBtn.onclick = function() {
+            modal.classList.remove("show");
+            setTimeout(() => modal.style.display = "none", 300);
         }
+        
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.classList.remove("show");
+                setTimeout(() => modal.style.display = "none", 300);
+            }
+        }
+
+        // Tickets fictícios
+        const tickets = [
+            {
+                id: "65641",
+                cliente: "Thaisa Marcondes",
+                telefone: "(12) 99744-3919",
+                responsavel: "Lucas",
+                status: "Em Atendimento",
+                tipo: "Combinado",
+                data: "2024-01-15",
+                hora: "11:31:07"
+            },
+            {
+                id: "65642",
+                cliente: "João Silva",
+                telefone: "(11) 98765-4321",
+                responsavel: "Maria",
+                status: "Pendente",
+                tipo: "Suporte",
+                data: "2024-01-15",
+                hora: "14:22:15"
+            },
+            {
+                id: "65643",
+                cliente: "Maria Oliveira",
+                telefone: "(13) 99876-5432",
+                responsavel: "Lucas",
+                status: "Concluído",
+                tipo: "Dúvida",
+                data: "2024-01-14",
+                hora: "09:45:30"
+            },
+            {
+                id: "65644",
+                cliente: "Pedro Santos",
+                telefone: "(14) 98877-6655",
+                responsavel: "João",
+                status: "Em Atendimento",
+                tipo: "Reclamação",
+                data: "2024-01-14",
+                hora: "16:10:00"
+            },
+            {
+                id: "65645",
+                cliente: "Ana Souza",
+                telefone: "(15) 99988-7766",
+                responsavel: "Lucas",
+                status: "Aguardando",
+                tipo: "Orçamento",
+                data: "2024-01-13",
+                hora: "10:05:22"
+            },
+            {
+                id: "65646",
+                cliente: "Carlos Mendes",
+                telefone: "(16) 98888-7777",
+                responsavel: "Maria",
+                status: "Pendente",
+                tipo: "Instalação",
+                data: "2024-01-15",
+                hora: "13:15:00"
+            },
+            {
+                id: "65647",
+                cliente: "Roberto Almeida",
+                telefone: "(17) 97777-8888",
+                responsavel: "João",
+                status: "Concluído",
+                tipo: "Manutenção",
+                data: "2024-01-14",
+                hora: "15:30:00"
+            },
+            {
+                id: "65648",
+                cliente: "Fernanda Lima",
+                telefone: "(18) 96666-9999",
+                responsavel: "Lucas",
+                status: "Em Atendimento",
+                tipo: "Suporte",
+                data: "2024-01-15",
+                hora: "09:45:00"
+            },
+            {
+                id: "65649",
+                cliente: "Ricardo Costa",
+                telefone: "(19) 95555-4444",
+                responsavel: "Maria",
+                status: "Aguardando",
+                tipo: "Orçamento",
+                data: "2024-01-13",
+                hora: "11:20:00"
+            },
+            {
+                id: "65650",
+                cliente: "Patricia Santos",
+                telefone: "(20) 94444-5555",
+                responsavel: "João",
+                status: "Pendente",
+                tipo: "Dúvida",
+                data: "2024-01-15",
+                hora: "16:40:00"
+            }
+        ];
+
+        // Função para filtrar tickets com todos os critérios
+        function filterTickets(searchText = '', responsavel = '', status = '', periodo = '') {
+            const searchTerms = searchText.toLowerCase();
+            let [dataInicio, dataFim] = [null, null];
+            
+            if (periodo) {
+                [dataInicio, dataFim] = periodo.split(' - ').map(d => {
+                    const [dia, mes, ano] = d.split('/');
+                    return new Date(ano, mes - 1, dia);
+                });
+            }
+
+            // Remover caracteres especiais do CNPJ para comparação
+            const cleanSearchTerms = searchTerms.replace(/[^\d]/g, '');
+
+            return tickets.filter(ticket => {
+                // Busca por CNPJ e outros campos
+                const matchSearch = !searchText || 
+                    (ticket.cnpj && ticket.cnpj.replace(/[^\d]/g, '').includes(cleanSearchTerms)) ||
+                    ticket.cliente.toLowerCase().includes(searchTerms) ||
+                    ticket.telefone.toLowerCase().includes(searchTerms) ||
+                    ticket.tipo.toLowerCase().includes(searchTerms);
+
+                // Demais filtros permanecem iguais
+                const matchResponsavel = !responsavel || ticket.responsavel === responsavel;
+                const matchStatus = !status || ticket.status === status;
+
+                let matchPeriodo = true;
+                if (dataInicio && dataFim) {
+                    const ticketDate = new Date(ticket.data);
+                    matchPeriodo = ticketDate >= dataInicio && ticketDate <= dataFim;
+                }
+
+                return matchSearch && matchResponsavel && matchStatus && matchPeriodo;
+            });
+        }
+
+        // Atualizar as opções do select de responsáveis
+        function updateResponsavelOptions() {
+            const responsaveis = [...new Set(tickets.map(t => t.responsavel))];
+            const selects = ['responsavel', 'responsavelModal'].map(id => document.getElementById(id));
+            
+            selects.forEach(select => {
+                if (select) {
+                    const currentValue = select.value;
+                    select.innerHTML = '<option value="">Todos</option>' + 
+                        responsaveis.map(resp => `<option value="${resp}">${resp}</option>`).join('');
+                    if (currentValue) select.value = currentValue;
+                }
+            });
+        }
+
+        // Atualizar as opções do select de status
+        function updateStatusOptions() {
+            const statusList = [...new Set(tickets.map(t => t.status))];
+            const selects = ['status', 'statusModal'].map(id => document.getElementById(id));
+            
+            selects.forEach(select => {
+                if (select) {
+                    const currentValue = select.value;
+                    select.innerHTML = '<option value="">Todos</option>' + 
+                        statusList.map(status => `<option value="${status}">${status}</option>`).join('');
+                    if (currentValue) select.value = currentValue;
+                }
+            });
+        }
+
+        // Inicializar os selects com as opções dinâmicas
+        document.addEventListener('DOMContentLoaded', () => {
+            updateResponsavelOptions();
+            updateStatusOptions();
+            renderTickets('rightDrawerTickets', tickets);
+            updateTicketCount(tickets.length);
+        });
+
+        // Função para renderizar tickets
+        function renderTickets(containerId, tickets) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            if (!tickets || tickets.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center p-4 text-gray-500">
+                        <i class="material-icons text-4xl mb-2">search_off</i>
+                        <p>Nenhum ticket encontrado</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const ticketsHtml = tickets.map(ticket => `
+                <div class="card bg-white hover:shadow-lg cursor-pointer p-4" onclick="selectTicket('${ticket.id}')">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-lg font-bold">TK: ${ticket.id}</span>
+                            <span class="px-3 py-1 rounded-full text-sm font-medium ${
+                                ticket.status === 'Em Atendimento' ? 'bg-blue-500 text-white' :
+                                ticket.status === 'Pendente' ? 'bg-yellow-500 text-white' :
+                                ticket.status === 'Concluído' ? 'bg-green-500 text-white' :
+                                'bg-gray-500 text-white'
+                            }">${ticket.status}</span>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="font-bold text-gray-800">${ticket.cliente}</p>
+                            <p class="text-gray-600">${ticket.telefone}</p>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-purple-500 font-medium">${ticket.responsavel}</span>
+                                <span class="text-gray-500">${ticket.tipo}</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-500">
+                                <span>${ticket.data}</span>
+                                <span>${ticket.hora}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = `<div class="ticket-list-right">${ticketsHtml}</div>`;
+        }
+
+        // Função para atualizar a contagem de tickets
+        function updateTicketCount(count) {
+            const ticketCount = document.getElementById('ticketCount');
+            ticketCount.textContent = `${count} ticket${count !== 1 ? 's' : ''}`;
+        }
+
+        // Função para aplicar todos os filtros
+        function applyFilters() {
+            const searchText = document.getElementById('rightDrawerSearch')?.value || '';
+            const responsavel = document.getElementById('responsavel')?.value || '';
+            const status = document.getElementById('status')?.value || '';
+            const periodo = document.getElementById('periodo')?.value || '';
+
+            console.log('Aplicando filtros:', { searchText, responsavel, status, periodo });
+
+            const filteredTickets = filterTickets(searchText, responsavel, status, periodo);
+            console.log('Tickets filtrados:', filteredTickets);
+
+            renderTickets('rightDrawerTickets', filteredTickets);
+            updateTicketCount(filteredTickets.length);
+        }
+
+        // Event listeners para todos os filtros
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar a lista completa de tickets
+            renderTickets('rightDrawerTickets', tickets);
+            updateTicketCount(tickets.length);
+
+            // Adicionar event listeners
+            const rightDrawerSearch = document.getElementById('rightDrawerSearch');
+            const responsavelSelect = document.getElementById('responsavel');
+            const statusSelect = document.getElementById('status');
+            const periodoInput = document.getElementById('periodo');
+
+            if (rightDrawerSearch) rightDrawerSearch.addEventListener('input', applyFilters);
+            if (responsavelSelect) responsavelSelect.addEventListener('change', applyFilters);
+            if (statusSelect) statusSelect.addEventListener('change', applyFilters);
+            if (periodoInput) periodoInput.addEventListener('change', applyFilters);
+
+            // Botão limpar
+            const clearButton = document.querySelector('.text-blue-500.hover\\:text-blue-600');
+            if (clearButton) {
+                clearButton.addEventListener('click', () => {
+                    if (rightDrawerSearch) rightDrawerSearch.value = '';
+                    if (responsavelSelect) responsavelSelect.value = '';
+                    if (statusSelect) statusSelect.value = '';
+                    if (periodoInput) periodoInput.value = '';
+                    applyFilters();
+                });
+            }
+
+            // Abrir o drawer
+            const rightDrawer = document.getElementById('rightDrawer');
+            if (rightDrawer) rightDrawer.classList.add('open');
+        });
+
+        // Função para selecionar um ticket
+        function selectTicket(ticketId) {
+            const ticket = tickets.find(t => t.id === ticketId);
+            if (ticket) {
+                // Atualizar o cabeçalho do chat
+                const chatHeader = document.querySelector('.chat-header');
+                chatHeader.innerHTML = `
+                    <div class="flex flex-col space-y-2">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-lg font-bold">TK: ${ticket.id}</span>
+                                <div class="flex items-center space-x-1">
+                                    <i class="material-icons text-purple-500">account_circle</i>
+                                    <span class="text-purple-500">${ticket.responsavel}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="material-icons text-gray-500">business</i>
+                            <span class="font-bold text-gray-800">${ticket.cliente}</span>
+                        </div>
+                    </div>
+                `;
+                
+                // Fechar o drawer em telas menores
+                if (window.innerWidth < 768) {
+                    document.getElementById('rightDrawer').classList.remove('open');
+                    document.getElementById('toggleRightDrawer').classList.remove('open');
+                }
+            }
+        }
+
+        // Adicionar o script para controlar o accordion
+        document.getElementById('filterAccordion').addEventListener('click', function() {
+            const content = document.getElementById('filterContent');
+            const icon = this.querySelector('.rotate-icon');
+            content.classList.toggle('open');
+            icon.classList.toggle('open');
+        });
+
+        // Botão limpar filtros
+        document.getElementById('clearFilters').addEventListener('click', function(e) {
+            e.stopPropagation(); // Evita que o accordion feche ao clicar em limpar
+            document.getElementById('responsavel').value = '';
+            document.getElementById('status').value = '';
+            document.getElementById('periodo').value = '';
+            document.getElementById('rightDrawerSearch').value = '';
+            applyFilters();
+        });
+
+        // Botão para mostrar/ocultar a lista de tickets
+        document.getElementById('toggleRightDrawer').addEventListener('click', function() {
+            const rightDrawer = document.getElementById('rightDrawer');
+            const toggleButton = this;
+            
+            rightDrawer.classList.toggle('open');
+            toggleButton.classList.toggle('closed');
+            
+            // Ajustar o chat section
+            adjustChatSection(rightDrawer.classList.contains('open'));
+            
+            // Atualizar o ícone quando o drawer estiver fechado
+            if (!rightDrawer.classList.contains('open')) {
+                toggleButton.querySelector('i').textContent = 'format_list_bulleted';
+            } else {
+                toggleButton.querySelector('i').textContent = 'chevron_right';
+            }
+        });
+
+        // Função para ajustar o chat quando o drawer é aberto/fechado
+        function adjustChatSection(isDrawerOpen) {
+            const chatSection = document.querySelector('.chat-section');
+            if (isDrawerOpen) {
+                chatSection.classList.add('drawer-open');
+            } else {
+                chatSection.classList.remove('drawer-open');
+            }
+        }
+
+        // Inicializar o estado do chat section
+        document.addEventListener('DOMContentLoaded', () => {
+            const rightDrawer = document.getElementById('rightDrawer');
+            adjustChatSection(rightDrawer.classList.contains('open'));
+        });
+
+        // Adicionar script para controlar o dropdown de notificações
+        document.getElementById('notificationButton').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('notificationsDropdown');
+            dropdown.classList.toggle('show');
+        });
+
+        // Fechar o dropdown ao clicar fora
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('notificationsDropdown');
+            const button = document.getElementById('notificationButton');
+            if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // Função para aplicar máscara de CNPJ
+        function maskCNPJ(input) {
+            let value = input.value.replace(/\D/g, '');
+            value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+            value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+            value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+            value = value.replace(/(\d{4})(\d)/, '$1-$2');
+            input.value = value;
+        }
+
+        // Controle dos passos do formulário
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        function updateSteps() {
+            // Atualizar círculos dos passos
+            document.querySelectorAll('.step').forEach(step => {
+                const stepNumber = parseInt(step.dataset.step);
+                step.classList.remove('active', 'completed');
+                if (stepNumber === currentStep) {
+                    step.classList.add('active');
+                } else if (stepNumber < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+
+            // Atualizar conteúdo visível
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.remove('active');
+                if (parseInt(content.dataset.step) === currentStep) {
+                    content.classList.add('active');
+                }
+            });
+
+            // Atualizar botões
+            const prevButton = document.getElementById('prevStep');
+            const nextButton = document.getElementById('nextStep');
+            const submitButton = document.getElementById('submitForm');
+
+            prevButton.style.display = currentStep === 1 ? 'none' : 'block';
+            nextButton.style.display = currentStep === totalSteps ? 'none' : 'block';
+            submitButton.style.display = currentStep === totalSteps ? 'block' : 'none';
+        }
+
+        // Event Listeners para os botões
+        document.getElementById('prevStep').addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateSteps();
+            }
+        });
+
+        document.getElementById('nextStep').addEventListener('click', () => {
+            if (validateCurrentStep()) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateSteps();
+                }
+            }
+        });
+
+        // Validação do passo atual
+        function validateCurrentStep() {
+            const currentStepContent = document.querySelector(`.step-content[data-step="${currentStep}"]`);
+            const inputs = currentStepContent.querySelectorAll('input, select, textarea');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (input.required && !input.value.trim()) {
+                    isValid = false;
+                    input.classList.add('border-red-500');
+                } else {
+                    input.classList.remove('border-red-500');
+                }
+            });
+
+            return isValid;
+        }
+
+        // Submissão do formulário
+        document.getElementById('newTicketForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateCurrentStep()) {
+                // Aqui você pode adicionar a lógica para salvar o ticket
+                console.log('Formulário enviado!');
+                modal.classList.remove('show');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        });
+
+        // Adicionar função para enviar mensagem
+        function sendMessage(text, isInternal = false) {
+            const messagesContainer = document.querySelector('.chat-messages');
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            
+            let messageHtml = '';
+            
+            if (isInternal) {
+                messageHtml = `
+                    <div class="internal-note">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="material-icons text-gray-400">note_add</i>
+                            <span class="font-medium">Anotação Interna</span>
+                        </div>
+                        <p>${text}</p>
+                        <div class="message-time text-gray-400">${timeStr}</div>
+                    </div>
+                `;
+            } else {
+                messageHtml = `
+                    <div class="chat-message sent">
+                        <p>${text}</p>
+                        <div class="message-time">${timeStr}</div>
+                        <div class="message-status">
+                            <i class="material-icons">done_all</i>
+                        </div>
+                    </div>
+                `;
+                
+                // Simular resposta após 2 segundos
+                setTimeout(() => {
+                    const responses = [
+                        "Entendi! Vou verificar isso para você.",
+                        "Obrigado pelo contato. Já estou analisando sua solicitação.",
+                        "Certo, vou dar andamento no seu pedido.",
+                        "Recebi sua mensagem. Em breve retorno com mais informações."
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    
+                    const responseHtml = `
+                        <div class="chat-message received">
+                            <p>${randomResponse}</p>
+                            <div class="message-time">${new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
+                        </div>
+                    `;
+                    messagesContainer.insertAdjacentHTML('beforeend', responseHtml);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }, 2000);
+            }
+            
+            messagesContainer.insertAdjacentHTML('beforeend', messageHtml);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Event listener para enviar mensagem
+        document.querySelector('.send-button').addEventListener('click', function() {
+            const textarea = document.querySelector('.chat-input textarea');
+            const text = textarea.value.trim();
+            
+            if (text) {
+                const isInternal = !document.querySelector('.chat-type-button.primary').classList.contains('active');
+                sendMessage(text, isInternal);
+                textarea.value = '';
+            }
+        });
+
+        // Event listener para tecla Enter
+        document.querySelector('.chat-input textarea').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.querySelector('.send-button').click();
+            }
+        });
+
+        // Alternar entre os tipos de mensagem
+        document.querySelectorAll('.chat-type-button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.chat-type-button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Ativar o botão de resposta ao cliente por padrão
+        document.querySelector('.chat-type-button.primary').classList.add('active');
+
+        // Configuração do Xano
+        const XANO_API_URL = 'https://x8ki-letl-twmt.n7.xano.io/api:3spb5VFq';
+
+        // Funções de API
+        async function fetchTickets() {
+            try {
+                const response = await fetch(`${XANO_API_URL}/tickets`);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Erro ao buscar tickets:', error);
+                return [];
+            }
+        }
+
+        async function createTicket(ticketData) {
+            try {
+                const response = await fetch(`${XANO_API_URL}/tickets`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${XANO_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(ticketData)
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Erro ao criar ticket:', error);
+                throw error;
+            }
+        }
+
+        async function updateTicket(ticketId, ticketData) {
+            try {
+                const response = await fetch(`${XANO_API_URL}/tickets/${ticketId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${XANO_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(ticketData)
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Erro ao atualizar ticket:', error);
+                throw error;
+            }
+        }
+
+        async function createMessage(messageData) {
+            try {
+                const response = await fetch(`${XANO_API_URL}/messages`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${XANO_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(messageData)
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Erro ao criar mensagem:', error);
+                throw error;
+            }
+        }
+
+        async function getTicketMessages(ticketId) {
+            try {
+                const response = await fetch(`${XANO_API_URL}/tickets/${ticketId}/messages`, {
+                    headers: {
+                        'Authorization': `Bearer ${XANO_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Erro ao buscar mensagens:', error);
+                return [];
+            }
+        }
+
+        // Modificar a função sendMessage para usar a API
+        async function sendMessage(text, isInternal = false) {
+            const messagesContainer = document.querySelector('.chat-messages');
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            
+            try {
+                // Criar mensagem no backend
+                const messageData = {
+                    ticket_id: currentTicketId, // Adicionar variável global para controlar o ticket atual
+                    content: text,
+                    type: isInternal ? 'internal' : 'client',
+                    created_at: now.toISOString(),
+                    user_id: currentUserId // Adicionar variável global para o usuário logado
+                };
+                
+                const savedMessage = await createMessage(messageData);
+                
+                // Renderizar mensagem na interface
+                let messageHtml = '';
+                if (isInternal) {
+                    messageHtml = `
+                        <div class="internal-note">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="material-icons text-gray-400">note_add</i>
+                                <span class="font-medium">Anotação Interna</span>
+                            </div>
+                            <p>${text}</p>
+                            <div class="message-time text-gray-400">${timeStr}</div>
+                        </div>
+                    `;
+                } else {
+                    messageHtml = `
+                        <div class="chat-message sent">
+                            <p>${text}</p>
+                            <div class="message-time">${timeStr}</div>
+                            <div class="message-status">
+                                <i class="material-icons">done_all</i>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                messagesContainer.insertAdjacentHTML('beforeend', messageHtml);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+            } catch (error) {
+                console.error('Erro ao enviar mensagem:', error);
+                // Adicionar notificação de erro para o usuário
+                alert('Erro ao enviar mensagem. Tente novamente.');
+            }
+        }
+
+        // Modificar a função selectTicket para carregar mensagens do backend
+        async function selectTicket(ticketId) {
+            try {
+                // Buscar ticket e mensagens do backend
+                const [ticket] = await Promise.all([
+                    fetchTickets().then(tickets => tickets.find(t => t.id === ticketId)),
+                    getTicketMessages(ticketId).then(messages => {
+                        // Renderizar mensagens
+                        const chatMessages = document.querySelector('.chat-messages');
+                        chatMessages.innerHTML = ''; // Limpar mensagens anteriores
+                        
+                        messages.forEach(message => {
+                            const timeStr = new Date(message.created_at).toLocaleTimeString('pt-BR', { 
+                                hour: '2-digit', 
+                                minute: '2-digit' 
+                            });
+                            
+                            if (message.type === 'internal') {
+                                chatMessages.insertAdjacentHTML('beforeend', `
+                                    <div class="internal-note">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <i class="material-icons text-gray-400">note_add</i>
+                                            <span class="font-medium">Anotação Interna</span>
+                                        </div>
+                                        <p>${message.content}</p>
+                                        <div class="message-time text-gray-400">${timeStr}</div>
+                                    </div>
+                                `);
+                            } else {
+                                const isOwn = message.user_id === currentUserId;
+                                chatMessages.insertAdjacentHTML('beforeend', `
+                                    <div class="chat-message ${isOwn ? 'sent' : 'received'}">
+                                        <p>${message.content}</p>
+                                        <div class="message-time">${timeStr}</div>
+                                        ${isOwn ? `
+                                            <div class="message-status">
+                                                <i class="material-icons">done_all</i>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                `);
+                            }
+                        });
+                        
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    })
+                ]);
+
+                if (ticket) {
+                    currentTicketId = ticketId; // Atualizar ticket atual
+                    
+                    // Atualizar cabeçalho do chat
+                    const chatHeader = document.querySelector('.chat-header');
+                    chatHeader.innerHTML = `
+                        <div class="flex flex-col space-y-2">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-lg font-bold">TK: ${ticket.id}</span>
+                                    <div class="flex items-center space-x-1">
+                                        <i class="material-icons text-purple-500">account_circle</i>
+                                        <span class="text-purple-500">${ticket.responsavel}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="material-icons text-gray-500">business</i>
+                                <span class="font-bold text-gray-800">${ticket.cliente}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                console.error('Erro ao selecionar ticket:', error);
+                alert('Erro ao carregar ticket. Tente novamente.');
+            }
+        }
+
+        // Modificar a função de renderização de tickets para usar dados do backend
+        async function renderTickets(containerId, filterParams = {}) {
+            try {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                
+                // Buscar tickets do backend
+                const tickets = await fetchTickets();
+                
+                // Aplicar filtros
+                const filteredTickets = tickets.filter(ticket => {
+                    const { searchText, responsavel, status } = filterParams;
+                    
+                    const matchSearch = !searchText || 
+                        ticket.cliente.toLowerCase().includes(searchText.toLowerCase()) ||
+                        ticket.id.toString().includes(searchText) ||
+                        (ticket.cnpj && ticket.cnpj.includes(searchText));
+                        
+                    const matchResponsavel = !responsavel || ticket.responsavel === responsavel;
+                    const matchStatus = !status || ticket.status === status;
+                    
+                    return matchSearch && matchResponsavel && matchStatus;
+                });
+                
+                // Renderizar tickets filtrados
+                if (!filteredTickets.length) {
+                    container.innerHTML = `
+                        <div class="text-center p-4 text-gray-500">
+                            <i class="material-icons text-4xl mb-2">search_off</i>
+                            <p>Nenhum ticket encontrado</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const ticketsHtml = filteredTickets.map(ticket => `
+                    <div class="card bg-white hover:shadow-lg cursor-pointer p-4" onclick="selectTicket('${ticket.id}')">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-bold">TK: ${ticket.id}</span>
+                                <span class="px-3 py-1 rounded-full text-sm font-medium ${
+                                    ticket.status === 'em andamento' ? 'bg-blue-500 text-white' :
+                                    ticket.status === 'pendente' ? 'bg-yellow-500 text-white' :
+                                    ticket.status === 'concluído' ? 'bg-green-500 text-white' :
+                                    'bg-gray-500 text-white'
+                                }">${ticket.status}</span>
+                            </div>
+                            <div class="space-y-2">
+                                <p class="font-bold text-gray-800">${ticket.cliente}</p>
+                                <p class="text-gray-600">${ticket.telefone || 'Sem telefone'}</p>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-purple-500 font-medium">${ticket.responsavel}</span>
+                                    <span class="text-gray-500">${ticket.tipo}</span>
+                                </div>
+                                <div class="flex justify-between text-sm text-gray-500">
+                                    <span>${new Date(ticket.created_at).toLocaleDateString('pt-BR')}</span>
+                                    <span>${new Date(ticket.created_at).toLocaleTimeString('pt-BR', { 
+                                        hour: '2-digit', 
+                                        minute: '2-digit' 
+                                    })}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                container.innerHTML = `<div class="ticket-list-right">${ticketsHtml}</div>`;
+                updateTicketCount(filteredTickets.length);
+                
+            } catch (error) {
+                console.error('Erro ao renderizar tickets:', error);
+                container.innerHTML = `
+                    <div class="text-center p-4 text-red-500">
+                        <i class="material-icons text-4xl mb-2">error_outline</i>
+                        <p>Erro ao carregar tickets. Tente novamente.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Modificar o envio do formulário para criar ticket no backend
+        document.getElementById('newTicketForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            if (validateCurrentStep()) {
+                try {
+                    const formData = {
+                        cnpj: document.getElementById('cnpj').value,
+                        cliente: document.getElementById('clientName').value,
+                        telefone: document.getElementById('clientPhone').value,
+                        email: document.getElementById('clientEmail').value,
+                        responsavel: document.getElementById('responsavelModal').value,
+                        status: document.getElementById('statusModal').value,
+                        descricao: document.getElementById('descricao').value,
+                        tipo: 'Novo',
+                        created_at: new Date().toISOString(),
+                        user_id: currentUserId
+                    };
+                    
+                    const newTicket = await createTicket(formData);
+                    
+                    // Fechar modal e atualizar lista de tickets
+                    modal.classList.remove('show');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        renderTickets('rightDrawerTickets');
+                    }, 300);
+                    
+                    // Limpar formulário
+                    this.reset();
+                    currentStep = 1;
+                    updateSteps();
+                    
+                } catch (error) {
+                    console.error('Erro ao criar ticket:', error);
+                    alert('Erro ao criar ticket. Tente novamente.');
+                }
+            }
+        });
     </script>
+    <script src="https://unpkg.com/@mui/material@latest/umd/material-ui.development.js"></script>
 </body>
 </html>
